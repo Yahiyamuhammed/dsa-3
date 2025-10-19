@@ -1,4 +1,4 @@
-class Node {
+class Node{
     constructor(){
         this.children={}
         this.isEnd=false
@@ -24,16 +24,12 @@ class Trie{
                 return false
             node=node.children[char]
         }
-        if(!node.isEnd)
-            return 'partial found'
-        else
-            return 'found'
+        return node.isEnd?'found':'partial found'
     }
     startWith(word){
         let node=this.root
         for(let char of word){
-            if(!node.children[char])
-                return false
+            if(!node.children[char]) return false
             node=node.children[char]
         }
         return true
@@ -54,15 +50,29 @@ class Trie{
             this.collectWords(node.children[char],word+char,results)
         }
     }
+    longestPrefix(){
+        let node=this.root
+        let prefix=""
+        while(true){
+            const key=Object.keys(node.children)
+            if(key.length!=1 || node.isEnd) break
+            let char=key[0]
+            prefix+=char
+            node=node.children[char]
+        }
+        return prefix
+    }
 }
 const trie=new Trie()
-trie.insert('cat')
-trie.insert('cap')
-trie.insert("can");
-trie.insert("cape");
+trie.insert("cat");
+trie.insert("cap");
 trie.insert("car");
-trie.insert("dog");
+trie.insert("care");
+trie.insert("cars");
+trie.insert("bat");
+trie.insert("ball");
 
-console.log(trie.search('ca'))
-console.log(trie.startWith('ca'))
+console.log(trie.search('cass'))
+console.log(trie.startWith('ba'))
 console.log(trie.autoComplete('ca'))
+console.log(trie.longestPrefix())
