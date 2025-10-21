@@ -30,6 +30,9 @@ class Graph {
         }
         this.adjList.delete(v)
     }
+    contains(v){
+        return this.adjList.has(v)
+    }
 }
 const graph = new Graph();
 graph.addEdge('a','b')
@@ -41,5 +44,7 @@ graph.removeEdge('b','d')
 console.log('-----')
 graph.printGraph()
 console.log('-----')
+console.log(graph.contains('a'))
 graph.removeVertex('a')
 graph.printGraph()
+console.log(graph.contains('a'))
