@@ -18,10 +18,28 @@ class Graph {
             console.log(vertex,edge)
         }
     }
+    removeEdge(v,w){
+        if(!this.adjList.has(v)||!this.adjList.has(w)) return null
+        this.adjList.set(v,this.adjList.get(v).filter(x=>x!=w))
+        this.adjList.set(w,this.adjList.get(w).filter(x=>x!=v))
+    }
+    removeVertex(v){
+        if(!this.adjList.has(v)) return 
+        for(let neighbour of this.adjList.get(v)){
+            this.adjList.set(neighbour,this.adjList.get(v).filter(x=>x!=v))
+        }
+        this.adjList.delete(v)
+    }
 }
 const graph = new Graph();
 graph.addEdge('a','b')
 graph.addEdge('a','c')
 graph.addEdge('b','d')
 graph.addEdge('d','d')
+graph.printGraph()
+graph.removeEdge('b','d')
+console.log('-----')
+graph.printGraph()
+console.log('-----')
+graph.removeVertex('a')
 graph.printGraph()
