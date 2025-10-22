@@ -41,6 +41,23 @@ class Graph {
             this.dfs(neighbours,visited)
         }
     }
+    bfs(start){
+        let visited=new Set()
+        let queue=[start]
+        visited.add(start)
+
+        while(queue.length>0){
+            let vertex=queue.shift()
+            console.log(vertex)
+
+            for(let neighbours of this.adjList.get(vertex)){
+                if(!visited.has(neighbours)){
+                    visited.add(neighbours)
+                    queue.push(neighbours)
+                }
+            }
+        }
+    }
 }
 const graph = new Graph();
 graph.addEdge('a','b')
@@ -57,3 +74,5 @@ console.log(graph.contains('a'))
 // graph.printGraph()
 // console.log(graph.contains('a'))
 graph.dfs('a')
+console.log('-----')
+graph.bfs('a')
