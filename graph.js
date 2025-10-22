@@ -37,6 +37,7 @@ class Graph {
         if(visited.has(start)) return
         console.log(start)
         visited.add(start)
+
         for(let neighbours of this.adjList.get(start)){
             this.dfs(neighbours,visited)
         }
@@ -45,11 +46,9 @@ class Graph {
         let visited=new Set()
         let queue=[start]
         visited.add(start)
-
         while(queue.length>0){
             let vertex=queue.shift()
             console.log(vertex)
-
             for(let neighbours of this.adjList.get(vertex)){
                 if(!visited.has(neighbours)){
                     visited.add(neighbours)
@@ -57,6 +56,25 @@ class Graph {
                 }
             }
         }
+    }
+    shortestPath(start){
+        let visited=new Set()
+        let queue=[[start,0]]
+        let distance=new Map()
+        distance.set(start,0)
+        visited.add(start)
+
+        while(queue.length>0){
+            let [vertex,dist]=queue.shift()
+            for(let neighbours of this.adjList.get(vertex)){
+                if(!visited.has(neighbours)){
+                    visited.add(neighbours)
+                    distance.set(neighbours,dist+1)
+                    queue.push([neighbours,dist+1])
+                }
+            }
+        }
+        return distance
     }
 }
 const graph = new Graph();
@@ -76,3 +94,4 @@ console.log(graph.contains('a'))
 graph.dfs('a')
 console.log('-----')
 graph.bfs('a')
+console.log(graph.shortestPath('a'))
