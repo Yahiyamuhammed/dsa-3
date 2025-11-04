@@ -2,8 +2,8 @@ class MaxHeap{
     constructor(){
         this.heap=[]
     }
-    insert(value){
-        this.heap.push(value)
+    insert(val){
+        this.heap.push(val)
         this.heapifyUp()
     }
     heapifyUp(){
@@ -11,7 +11,7 @@ class MaxHeap{
         while(index>0){
             let parentIndex=Math.floor((index-1)/2)
             if(this.heap[parentIndex]<this.heap[index]){
-                [this.heap[index],this.heap[parentIndex]]=[this.heap[parentIndex],this.heap[index]]
+                [this.heap[parentIndex],this.heap[index]]=[this.heap[index],this.heap[parentIndex]]
                 index=parentIndex
             }else break
         }
@@ -19,22 +19,21 @@ class MaxHeap{
     remove(){
         if(this.heap.length==0) return null
         if(this.heap.length==1) return this.heap.pop()
-        
         this.heap[0]=this.heap.pop()
         this.heapifyDown(0)
     }
     heapifyDown(index){
         let largest=index
-        let length=this.heap.length
+        let n=this.heap.length
         while(true){
-            let left=(2*index)+1
-            let right=(2*index)+2
+            let left=2*index+1
+            let right=2*index+2
 
-            if(left<length && this.heap[left]>this.heap[largest]) largest=left
-            if(right<length && this.heap[right]>this.heap[largest]) largest=right
+            if(left<n && this.heap[left]>this.heap[largest]) largest=left
+            if(right < n && this.heap[right]>this.heap[largest]) largest=right
 
-            if(largest!==index){
-                [this.heap[largest],this.heap[index]]=[this.heap[index],this.heap[largest]]
+            if(largest!=index){
+                [this.heap[index],this.heap[largest]]=[this.heap[largest],this.heap[index]]
                 index=largest
             }else break
         }
