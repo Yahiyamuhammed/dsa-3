@@ -76,10 +76,7 @@ class BST {
         return node;
     }
 
-    // Optional wrapper for deleting root
-    remove(value) {
-        this.root = this.delete(value, this.root);
-    }
+    
 
     // ----------------- TRAVERSALS -----------------
     inorder(node = this.root, result = []) {
@@ -153,7 +150,7 @@ console.log("Contains 9?", tree.contains(9));          // false
 
 console.log("Closest to 6:", tree.findClosest(6));     // 5 or 7 (whichever is closer)
 
-tree.remove(15);                                       
+tree.delete(15);                                       
 console.log("After deleting 15, inorder:", tree.inorder()); // [2,5,7,10,12,17]
 
 console.log("Is BST?", tree.isBST());                 // true
